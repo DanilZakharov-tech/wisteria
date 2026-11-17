@@ -1,3 +1,4 @@
+import Game2D from "./Game2D";
 import React, { useState, useEffect, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import {
@@ -838,11 +839,13 @@ function App() {
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Suspense fallback={<div>WISTERIA · загружаем район…</div>}>
-      {location.pathname === "/admin" ? <Admin /> : <App />}
+      {location.pathname === "/admin" ? <Admin /> : <Game2D />}
     </Suspense>
   </React.StrictMode>,
 );
 if ("serviceWorker" in navigator)
   window.addEventListener("load", () =>
-    navigator.serviceWorker.register("/sw.js"),
+    navigator.serviceWorker.register("/sw.js", {updateViaCache:"none"}).then(reg=>reg.update()),
   );
+
+let refreshing=false; navigator.serviceWorker?.addEventListener("controllerchange",()=>{if(!refreshing){refreshing=true;location.reload()}});
