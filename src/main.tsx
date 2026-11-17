@@ -180,7 +180,7 @@ function App() {
               <World
                 inside={inside}
                 onNear={setNear}
-                paused={dialog || !!detail}
+                paused={dialog || !!detail || storyOpen}
               />
               <div className="world-top">
                 <div className="location">
