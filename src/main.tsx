@@ -23,6 +23,7 @@ import {
   Plus,
 } from "lucide-react";
 import World from "./World";
+import StoryScene from "./StoryScene";
 import {
   useGame,
   quests,
@@ -56,6 +57,7 @@ function App() {
   const [near, setNear] = useState("");
   const [inside, setInside] = useState(false);
   const [dialog, setDialog] = useState(false);
+  const [storyOpen, setStoryOpen] = useState(false);
   const [dialogNpc, setDialogNpc] = useState("victoria");
   const [toast, setToast] = useState("");
   const [detail, setDetail] = useState<string | null>(null);
@@ -148,6 +150,7 @@ function App() {
           <span>⌃</span>
         </div>
       </aside>
+      {storyOpen && <StoryScene onClose={() => setStoryOpen(false)} onQuest={(id) => { setTab("Миссии"); setDetail(id); }} />}
       <main>
         <header>
           <div>
@@ -195,6 +198,7 @@ function App() {
                   <Map size={18} />
                 </button>
               </div>
+              <button className="story-launch" onClick={() => setStoryOpen(true)}><BookOpen size={17}/> История соседок <Sparkles size={15}/></button>
               <div className="chapter-chip">
                 <span>{g.done.includes("dinner") ? "ГЛАВА 02" : "ГЛАВА 01"}</span>
                 <b>{g.done.includes("dinner") ? "Свой ритм" : "Новая соседка"}</b>
