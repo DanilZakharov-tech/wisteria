@@ -11,7 +11,7 @@ export type StoryBeat = {
 };
 export const storyBeats: StoryBeat[] = [
   {
-    id:"arrival",chapter:1,title:"За белым забором",speaker:"Виктория",mood:"Первое знакомство",location:"Вистерия-Лейн",
+    id:"arrival",chapter:1,title:"За белым забором",speaker:"Бри",mood:"Первое знакомство",location:"Вистерия-Лейн",
     lines:["По этой улице быстро расходятся новости, дорогая.","Но сегодня у нас не сплетня. Сегодня у нас новая соседка.","У тебя есть возможность начать собственную историю — без попыток понравиться каждому."],
     rewardQuest:"hello"
   },
@@ -26,7 +26,7 @@ export const storyBeats: StoryBeat[] = [
     unlockAfter:"style",rewardQuest:"reel"
   },
   {
-    id:"dinner",chapter:1,title:"Приглашение на ужин",speaker:"Виктория",mood:"Уют и ритуалы",location:"Кухня",
+    id:"dinner",chapter:1,title:"Приглашение на ужин",speaker:"Бри",mood:"Уют и ритуалы",location:"Кухня",
     lines:["Кухня — лучшее место для настоящих разговоров.","Мне хватило бы даже нескольких брускетт, чтобы устроить прекрасный вечер.","Хочешь попробовать рецепт и заработать ключ от следующей главы?"],
     unlockAfter:"unpack",rewardQuest:"dinner"
   },

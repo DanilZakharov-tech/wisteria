@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import World from "./World";
 import StoryScene from "./StoryScene";
+import Season from "./Season";
 import {
   useGame,
   quests,
@@ -36,6 +37,7 @@ import {
 import "./style.css";
 import { CloudPanel, Admin, loadQuestConfig } from "./cloud";
 const tabs = [
+  ["Сегодня", Sun],
   ["Мир", Compass],
   ["Миссии", BookOpen],
   ["Карта", Map],
@@ -53,7 +55,7 @@ function App() {
       .then(() => refresh((x) => x + 1))
       .catch(console.warn);
   }, []);
-  const [tab, setTab] = useState("Мир");
+  const [tab, setTab] = useState("Сегодня");
   const [near, setNear] = useState("");
   const [inside, setInside] = useState(false);
   const [dialog, setDialog] = useState(false);
@@ -152,6 +154,7 @@ function App() {
       </aside>
       {storyOpen && <StoryScene onClose={() => setStoryOpen(false)} onQuest={(id) => { setTab("Миссии"); setDetail(id); }} />}
       <main>
+{tab === "Сегодня" && <Season onStory={()=>setStoryOpen(true)} onInstagram={()=>setTab("Instagram")} />}
         <header>
           <div>
             <span className="eyebrow">ТВОЁ МЕСТО СИЛЫ</span>

@@ -4,7 +4,7 @@ import { storyBeats, nextStory, chapterNames, type StoryBeat } from "./story";
 import { useGame } from "./game";
 import "./story.css";
 const portraits: Record<string,string> = {
-"Виктория":"🌹","Изабелла":"💎","София":"🌸","Маргарет":"🗝️"
+"Бри":"🌹","Изабелла":"💎","София":"🌸","Маргарет":"🗝️"
 };
 function stageTexture(name:string){
  return name==="Гардероб"?"wardrobe":name==="Кухня"?"kitchen":name==="Гостиная"?"lounge":"street";
@@ -30,8 +30,8 @@ export default function StoryScene({ onClose,onQuest }: {onClose:()=>void;onQues
  <div className="story-kicker"><BookOpen size={16}/> СЕЗОН 01 · ГЛАВА {String(selected.chapter).padStart(2,"0")}</div>
  <nav className="story-mobile-episodes" aria-label="Доступные сцены">{available.map(beat=><button key={beat.id} aria-pressed={selected.id===beat.id} onClick={()=>change(beat)}>{seen.includes(beat.id)?"✓ ":""}{beat.title}</button>)}</nav>
  <div className="story-cinematic">
- <div className="story-npc" aria-label={selected.speaker}><div className="story-npc-halo" /><div className="story-npc-portrait">{portraits[selected.speaker]}</div><span>{selected.speaker}</span></div>
- <div className="story-alina"><div className="story-alina-face">А</div><span>Алина</span></div>
+ <div className="story-npc" aria-label={selected.speaker}><div className="story-npc-halo" /><div className="story-npc-portrait">{selected.speaker==="Бри"?<img src="/characters/bree-scene.jpg" alt="Бри"/>:portraits[selected.speaker]}</div><span>{selected.speaker}</span></div>
+ <div className="story-alina"><img className="story-alina-real" src="/characters/alina.jpg" alt="Алина"/><span>Алина</span></div>
  </div>
  <div className="storybook-dialogue">
  <div className="storybook-dialogue-top"><span className="story-person">{selected.speaker}</span><span>{selected.mood}</span></div>
