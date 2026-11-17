@@ -11,11 +11,12 @@ function stageTexture(name:string){
 }
 export default function StoryScene({ onClose,onQuest }: {onClose:()=>void;onQuest:(id:string)=>void}) {
  const done=useGame(s=>s.done);
- const [seen,setSeen]=useState<string[]>(()=>{try{return JSON.parse(localStorage.getItem("wisteria-seen-stories-v1")||"[]")}catch{return []}});
+ const [seen,setSeen]=useState<string[]>(()=>{try{const value: unknown=JSON.parse(localStorage.getItem("wisteria-seen-stories-v1")||"[]");return Array.isArray(value)?value.filter((id): id is string=>typeof id==="string"):[]}catch{return []}});
  const [selected,setSelected]=useState<StoryBeat>(()=>nextStory(done,seen)||storyBeats[0]);
  const [page,setPage]=useState(0);
  const [reward,setReward]=useState(false);
- useEffect(()=>{localStorage.setItem("wisteria-seen-stories-v1",JSON.stringify(seen))},[seen]);
+ useEffect(()=>{try{localStorage.setItem("wisteria-seen-stories-v1",JSON.stringify(seen))}catch{/* Continue playing when storage is unavailable. */}},[seen]);
+ useEffect(()=>{const previous=document.body.style.overflow;document.body.style.overflow="hidden";const close=(event:KeyboardEvent)=>{if(event.key==="Escape")onClose()};window.addEventListener("keydown",close);return()=>{document.body.style.overflow=previous;window.removeEventListener("keydown",close)}},[onClose]);
  const advance=()=>{
  if(page<selected.lines.length-1){setPage(p=>p+1);return;}
  setSeen(v=>v.includes(selected.id)?v:[...v,selected.id]);setReward(true);
@@ -27,6 +28,7 @@ export default function StoryScene({ onClose,onQuest }: {onClose:()=>void;onQues
  <div className="storybook-vines" aria-hidden="true">✿ ✿ ✿</div>
  <button className="story-close" onClick={onClose}><X size={20}/><span>Вернуться в мир</span></button>
  <div className="story-kicker"><BookOpen size={16}/> СЕЗОН 01 · ГЛАВА {String(selected.chapter).padStart(2,"0")}</div>
+ <nav className="story-mobile-episodes" aria-label="Доступные сцены">{available.map(beat=><button key={beat.id} aria-pressed={selected.id===beat.id} onClick={()=>change(beat)}>{seen.includes(beat.id)?"✓ ":""}{beat.title}</button>)}</nav>
  <div className="story-cinematic">
  <div className="story-npc" aria-label={selected.speaker}><div className="story-npc-halo" /><div className="story-npc-portrait">{portraits[selected.speaker]}</div><span>{selected.speaker}</span></div>
  <div className="story-alina"><div className="story-alina-face">А</div><span>Алина</span></div>
