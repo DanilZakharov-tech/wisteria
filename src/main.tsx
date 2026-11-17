@@ -153,7 +153,7 @@ function App() {
         </div>
       </aside>
       {storyOpen && <StoryScene onClose={() => setStoryOpen(false)} onQuest={(id) => { setTab("Миссии"); setDetail(id); }} />}
-      <main>
+      <main className={tab === "Сегодня" ? "season-mode" : ""}>
 {tab === "Сегодня" && <Season onStory={()=>setStoryOpen(true)} onInstagram={()=>setTab("Instagram")} />}
         <header>
           <div>
@@ -180,11 +180,11 @@ function App() {
         <div className="game-layout">
           <section className="main-column">
             <div className="world-card">
-              <World
+              {tab !== "Сегодня" && <World
                 inside={inside}
                 onNear={setNear}
                 paused={dialog || !!detail || storyOpen}
-              />
+              />}
               <div className="world-top">
                 <div className="location">
                   <span className="live-dot" />
